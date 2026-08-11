@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="pg5" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#1B4D2E"/>
+<stop offset="1" stop-color="#12361f"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="800" fill="url(#pg5)"/>
+<g fill="#0d2415" opacity="0.55">
+<rect x="120" y="360" width="120" height="440"/>
+<rect x="260" y="260" width="150" height="540"/>
+<rect x="430" y="420" width="110" height="380"/>
+<rect x="560" y="180" width="170" height="620"/>
+<rect x="750" y="340" width="130" height="460"/>
+<rect x="900" y="260" width="150" height="540"/>
+</g>
+<text x="600" y="720" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="26" fill="#B8860B" letter-spacing="4">QBD POWER</text>
+<text x="600" y="760" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="600" font-size="16" fill="#f4eee4" opacity="0.75" letter-spacing="2">PROJECT PHOTOGRAPH PENDING</text>
+</svg>
