@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   mobileClose?.addEventListener("click", closeMenu);
   mobilePanel?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
 
-  /* ---------- Hero slider (image + auto-detected video) ---------- */
+  /* ---------- Hero slider ---------- */
   const slides = [...document.querySelectorAll(".hero-slide")];
   const dots = [...document.querySelectorAll(".hero-progress button")];
   const counter = document.querySelector(".hero-counter");
@@ -54,13 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
     restartHero();
   }
 
-  // Auto-connect: if a real video file exists at the referenced path, fade it in over
-  // the fallback image. If it 404s, quietly stay on the image — no code edits needed
-  // once you drop qbd-construction-hero.mp4 (etc.) into assets/img/hero/.
   document.querySelectorAll(".hero-media__video").forEach(video => {
     video.addEventListener("loadeddata", () => video.classList.add("is-loaded"));
     video.addEventListener("error", () => { video.style.display = "none"; }, true);
-    // If nothing loads within a few seconds, assume the file is missing and hide quietly.
     setTimeout(() => { if (video.readyState === 0) video.style.display = "none"; }, 4000);
   });
 
@@ -80,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     revealItems.forEach(el => el.classList.add("is-visible"));
   }
 
-  /* ---------- Animated counters (trust strip + metric row) ---------- */
+  /* ---------- Animated counters ---------- */
   const counters = document.querySelectorAll("[data-count-to]");
   const animateCount = (el) => {
     const target = parseFloat(el.dataset.countTo);
@@ -147,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
   }
 
-  /* ---------- Contact form: prepares an email draft (static site, no backend) ---------- */
+  /* ---------- Contact form: prepares an email draft ---------- */
   const form = document.querySelector("#contactForm");
   const status = document.querySelector(".form-status");
   form?.addEventListener("submit", e => {
@@ -165,4 +161,40 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = `mailto:qbdpower@gmail.com?subject=${subject}&body=${body}`;
     if (status) status.textContent = "✓ Your email application should now open with the enquiry prepared.";
   });
+
+  /* ---------- Services Showcase Sliders ---------- */
+  const serviceSliders = document.querySelectorAll("[data-service-slider]");
+  serviceSliders.forEach(slider => {
+    const sSlides = [...slider.querySelectorAll(".service-slide")];
+    const sDots = [...slider.querySelectorAll(".service-slides__dots button")];
+    if (sSlides.length < 2) return;
+
+    let sIdx = 0;
+    let sTimer = null;
+
+    const show = (i) => {
+      sIdx = (i + sSlides.length) % sSlides.length;
+      sSlides.forEach((s, k) => s.classList.toggle("is-active", k === sIdx));
+      sDots.forEach((d, k) => d.classList.toggle("is-active", k === sIdx));
+    };
+
+    const start = () => {
+      if (sTimer) clearInterval(sTimer);
+      sTimer = setInterval(() => show(sIdx + 1), 4500);
+    };
+
+    const stop = () => { if (sTimer) clearInterval(sTimer); };
+
+    sDots.forEach((d, k) => d.addEventListener("click", () => {
+      show(k);
+      start();
+    }));
+
+    slider.addEventListener("mouseenter", stop);
+    slider.addEventListener("mouseleave", start);
+
+    show(0);
+    start();
+  });
+
 });
